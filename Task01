@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="C:\Users\harsh\OneDrive\Documents\WebD\Project1\styles.css">
+        <title>Responsive product card Nike</title>
+    </head>
+    <style>/*===== GOOGLE FONTS =====*/
+        @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+        /*===== VARIABLES CSS =====*/
+        :root {
+          --header-height: 3.5rem;
+          /*===== Colors =====*/
+          --first-color: #A29596;
+          --primary: #A29596;
+          --second-color: #33303D;
+          --black-color: #111111;
+          --white-color: #FFF;
+          /*===== Font and typography =====*/
+          --body-font: 'Roboto', sans-serif;
+          --biggest-font-size: 1.5rem;
+          --big-font-size: 1.5rem;
+          --normal-font-size: .938rem;
+          --smaller-font-size: .75rem;
+          /*========== Font weight ==========*/
+          --font-medium: 500;
+          --font-bold: 700;
+          /*===== z index =====*/
+          --z-fixed: 100;
+          --z-modal: 1000;
+        }
+        
+        @media screen and (min-width: 968px) {
+          :root {
+            --biggest-font-size: 3.25rem;
+            --big-font-size: 2.25rem;
+            --normal-font-size: 1rem;
+            --smaller-font-size: .813rem;
+          }
+        }
+        
+        /*===== BASE =====*/
+        *, ::before, ::after {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        
+        body {
+          font-family: var(--body-font);
+          background-color: var(--white-color);
+          color: var(--black-color);
+        }
+        
+        h1, h2, h3, p {
+          margin: 0;
+        }
+        
+        ul {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+        
+        a {
+          text-decoration: none;
+        }
+        
+        /*===== LAYOUT =====*/
+        .grid {
+          max-width: 1200px;
+          margin-left: 1rem;
+          margin-right: 1rem;
+        }
+        
+        .header {
+          width: 100%;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: var(--z-fixed);
+          background-color: var(--white-color);
+        }
+        
+        /*===== HEADER & NAV =====*/
+        .nav {
+          height: var(--header-height);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        
+        @media screen and (max-width: 968px) {
+          .nav__menu {
+            position: fixed;
+            left: -100%;
+            top: var(--header-height);
+            background-color: var(--white-color);
+            width: 80%;
+            height: 100%;
+            padding: 2rem;
+            z-index: var(--z-fixed);
+            transition: .3s;
+          }
+        }
+        
+        .nav__list {
+          display: flex;
+          flex-direction: column;
+          row-gap: 2rem;
+        }
+        
+        .nav__item::before{
+          font-weight: var(--font-bold);
+          
+        }
+
+        .nav__item:hover{
+          font-weight: var(--font-bold);
+          background-color: lightcoral;
+        }
+        
+        .nav__link {
+          color: var(--black-color);
+        }
+        
+        .nav__toggle {
+          cursor: pointer;
+        }
+        
+        /* Show menu */
+        .show {
+          left: 0;
+        }
+        
+        /*===== HOME =====*/
+        .home {
+          height: 100vh;
+          display: grid;
+          row-gap: 3.5rem;
+          grid-template-rows: repeat(2, max-content);
+          overflow: hidden;
+        }
+        
+        /*===== Sneaker =====*/
+        .sneaker {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-top: 6rem;
+          position: relative;
+        }
+        
+        .sneaker__figure {
+          width: 240px;
+          height: 240px;
+          background-color: var(--primary);
+          border-radius: 50%;
+          transition: .5s;
+        }
+        
+        .sneaker__img {
+          width: 413px;
+          position: absolute;
+          top: 16%;
+          left: 9%;
+          right: 0;
+          margin-left: auto;
+          margin-right: auto;
+          transform: rotate(30deg);
+          opacity: 0;
+          filter: drop-shadow(0px 10px 10px rgba(17, 17, 17, 0.4));
+        }
+        
+        .sneaker__img.shows {
+          opacity: 1;
+        }
+        
+        .sneaker__colors {
+          position: absolute;
+          right: 2%;
+        }
+        
+        .sneaker__color {
+          display: block;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          margin-bottom: .5rem;
+          cursor: pointer;
+        }
+        
+        .sneaker__color.active {
+          border: 2px solid var(--white-color);
+          box-shadow: 0 0 2px black;
+        }
+        
+        .sneaker__colors-one {
+          background-color: var(--first-color);
+        }
+        
+        .sneaker__colors-two {
+          background-color: var(--black-color);
+        }
+        
+        /*===== Data =====*/
+        .data {
+          margin-bottom: 1.5rem;
+        }
+        
+        .data__subtitle {
+          font-size: var(--normal-font-size);
+          font-weight: var(--font-medium);
+        }
+        
+        .data__title {
+          font-size: var(--biggest-font-size);
+          margin-bottom: .5rem;
+        }
+        
+        .data__description {
+          font-size: var(--normal-font-size);
+        }
+        
+        .actions {
+          display: flex;
+          justify-content: space-between;
+        }
+        
+        /*===== Size =====*/
+        .size__title {
+          font-size: var(--normal-font-size);
+          margin-bottom: 1rem;
+        }
+        
+        .size__content {
+          display: flex;
+        }
+        
+        .size__tallas {
+          width: 30px;
+          height: 30px;
+          margin-right: .5rem;
+          font-size: var(--smaller-font-size);
+          text-align: center;
+          line-height: 30px;
+          border-radius: .25rem;
+          cursor: pointer;
+        }
+        
+        .size__tallas.active {
+          background-color: var(--primary);
+          color: var(--white-color);
+        }
+        
+        /*===== Qty =====*/
+        .quantity__title {
+          font-size: var(--normal-font-size);
+          margin-bottom: 1rem;
+        }
+        
+        .quantity__content {
+          width: 100px;
+          height: 30px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background-color: var(--primary);
+          color: var(--white-color);
+          padding: .5rem;
+          border-radius: .25rem;
+        }
+        
+        /*===== Price =====*/
+        .price {
+          position: fixed;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          padding: 1rem 0;
+          background-color: var(--white-color);
+          border-radius: 1.5rem 1.5rem 0 0;
+          box-shadow: 0px 0px 20px rgba(17, 17, 17, 0.25);
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+        }
+        
+        .price__title {
+          font-size: var(--big-font-size);
+          color: var(--black-color);
+        }
+        
+        .price__button {
+          background-color: var(--primary);
+          color: var(--white-color);
+          padding: 1.25rem 3.125rem;
+          border-radius: .5rem;
+          transition: box-shadow .4s;
+        }
+        
+        /*===== BREAKPOINTS =====*/
+        /* For small devices */
+        @media screen and (max-width: 320px) {
+          .home {
+            row-gap: 1.5rem;
+          }
+          .sneaker__figure {
+            width: 210px;
+            height: 210px;
+          }
+          .sneaker img {
+            width: 230px;
+          }
+          .sneaker__colors {
+            right: 1%;
+          }
+          .price__title {
+            font-size: var(--normal-font-size);
+          }
+          .price__button {
+            padding: 1.25rem 2rem;
+          }
+        }
+        
+        /* For medium devices */
+        @media screen and (min-width: 480px) {
+          .data__description {
+            width: 350px;
+          }
+        }
+        
+        @media screen and (min-width: 768px) {
+          .home {
+            grid-template-columns: repeat(2, max-content);
+            align-content: center;
+            justify-content: center;
+            column-gap: 6rem;
+            row-gap: 0;
+          }
+          .sneaker {
+            margin-top: 0;
+          }
+          .sneaker__colors {
+            right: -10%;
+          }
+          .sneaker__img {
+            left: -6%;
+          }
+          .actions {
+            margin-bottom: 3rem;
+          }
+          .price {
+            position: initial;
+            background-color: initial;
+            justify-content: space-between;
+            box-shadow: none;
+            padding: 0;
+          }
+          .price__title {
+            color: var(--black-color);
+            font-weight: var(--font-medium);
+          }
+        }
+        
+        /* For large devices */
+        @media screen and (min-width: 968px) {
+          .nav {
+            height: calc(var(--header-height) + 1.5rem);
+          }
+          .nav__list {
+            flex-direction: row;
+            column-gap: 3rem;
+          }
+          .nav__toggle {
+            display: none;
+          }
+          .sneaker {
+            margin: 0;
+          }
+          .sneaker__figure {
+            width: 430px;
+            height: 430px;
+          }
+          .sneaker__img {
+            width: 550px;
+            top: 13%;
+          }
+          .sneaker__colors {
+            right: initial;
+            bottom: -3rem;
+          }
+          .sneaker__colors span {
+            display: inline-block;
+          }
+          .info {
+            align-self: center;
+          }
+          .data {
+            margin-bottom: 2.5rem;
+          }
+          .data__subtitle {
+            font-size: 1.5rem;
+          }
+          .data__title {
+            margin-bottom: 1rem;
+          }
+          .size__tallas {
+            width: 34px;
+            height: 34px;
+            line-height: 35px;
+          }
+        }
+        
+        @media screen and (min-width: 1200px) {
+          .grid {
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }</style>
+    <body>
+        <!-- ===== HEADER ===== -->
+        <header class="header">
+            <!-- ===== NAV ===== -->
+            <nav class="nav grid">
+                <div class="nav__toggle" id="nav-toggle">
+                    <img src="icon-menu.png">
+                </div>
+
+                <div>
+                    <a class="nav__logo"><img src="nike-logo.png" alt=""></a>
+                </div>
+
+                <!-- ===== NAV LIST ===== -->
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list">
+                        <li class="nav__item"><a href="" class="nav__link">MEN</a></li>
+                        <li class="nav__item"><a href="" class="nav__link">WOMEN</a></li>
+                        <li class="nav__item"><a href="" class="nav__link">KIDS</a></li>
+                        <li class="nav__item"><a href="" class="nav__link">CUSTOMIZE</a></li>
+                        <li class="nav__item"><a href="" class="nav__link">SALE</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav__shop">
+                    <img src="shopping-bag.png" alt="">
+                </div>
+            </nav>
+        </header>
+
+        <!-- ===== HOME ===== -->
+        <main class="main grid">
+            <div class="home">
+                <!-- ===== SNEAKER ===== -->
+                <div class="sneaker">
+                    <div class="sneaker__figure">
+                    </div>
+
+                    <div>
+                        <img src="NikeAirMaxMotion2.png" alt="" class="sneaker__img shows" color="#A29596">
+                        <img src="NikeAirMax Motion2black.png" alt="" class="sneaker__img" color="#111111">
+                    </div>
+
+                    <div class="sneaker__colors">
+                        <span class="sneaker__color sneaker__colors-one active" primary="#A29596" color="#A29596"></span>
+                        <span class="sneaker__color sneaker__colors-two " primary="#111111" color="#111111"></span>
+                    </div>
+                </div>
+
+                <!-- ===== IFORMATION ===== -->
+                <div class="info">
+                    <!-- ===== DATA ===== -->
+                    <div class="data">
+                        <span class="data__subtitle">Nike</span>
+                        <h1 class="data__title">Air Max Motion 2</h1>
+                        <p class="data__description">They combine breathable mesh without seams for a traditional style.</p>
+                    </div>
+
+                    <!-- ===== ACTIONS ===== -->
+                    <div class="actions">
+                        <!-- ===== SIZE ===== -->
+                        <div class="size">
+                            <h3 class="size__title">Sizes</h3>
+                            <div class="size__content">
+                                <span class="size__tallas active">
+                                    8.5
+                                </span>
+                                <span class="size__tallas">
+                                    9
+                                </span>
+                                <span class="size__tallas">
+                                    9.5
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- ===== QUANTITY ===== -->
+                        <div class="quantity">
+                            <h3 class="quantity__title">Qty.</h3>
+                            <div class="quantity__content"> 
+                                <span>-</span>
+                                <span>1</span>
+                                <span>+</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== PRICE ===== -->
+                    <div class="price">
+                        <span class="price__title">$99.00</span>
+                        <a href="#" class="price__button">ADD TO CART</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- MAIN -->
+        <script>/*----- MENU -----*/
+            const showMenu = (toggleId,navId) =>{
+                const toggle = document.getElementById(toggleId),
+                nav = document.getElementById(navId)
+            
+                if(toggle && nav){
+                    toggle.addEventListener('click', ()=>{
+                        nav.classList.toggle('show')
+                    })
+                }
+            }
+            showMenu('nav-toggle','nav-menu')
+            
+            /*----- CAMBIO COLORS -----*/
+            const sizes = document.querySelectorAll('.size__tallas');
+            const colors = document.querySelectorAll('.sneaker__color');
+            const sneaker = document.querySelectorAll('.sneaker__img');
+            
+            function changeSize(){
+                sizes.forEach(size => size.classList.remove('active'));
+                this.classList.add('active');
+            }
+            
+            function changeColor(){
+                let primary = this.getAttribute('primary');
+                let color = this.getAttribute('color');
+                let sneakerColor = document.querySelector(`.sneaker__img[color="${color}"]`);
+            
+                colors.forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+            
+                document.documentElement.style.setProperty('--primary', primary);
+            
+                sneaker.forEach(s => s.classList.remove('shows'));
+                sneakerColor.classList.add('shows')
+            }
+            
+            sizes.forEach(size => size.addEventListener('click', changeSize));
+            colors.forEach(c => c.addEventListener('click', changeColor));</script>
+    </body>
+</html>
